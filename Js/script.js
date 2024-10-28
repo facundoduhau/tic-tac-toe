@@ -33,35 +33,29 @@ function selectBox() {
   changeBox(this, position);
   checkWinner();
 
-  // If game is still running after player's move, trigger machine's turn
   if (running && current === machine) {
     machineTurn();
   }
 }
 
 function machineTurn() {
-  // Temporarily disable clicking
   running = false;
 
   setTimeout(() => {
-    // Get all empty positions
     const emptyPositions = boxOption.reduce((acc, val, idx) => {
       if (val === "") acc.push(idx);
       return acc;
     }, []);
 
-    // Randomly select an empty position
     const randomIndex = Math.floor(Math.random() * emptyPositions.length);
     const position = emptyPositions[randomIndex];
 
-    // Make the move
     const box = document.getElementById(position.toString());
     changeBox(box, position);
 
-    // Re-enable clicking and check for winner
     running = true;
     checkWinner();
-  }, 500); // Half second delay
+  }, 500);
 }
 
 function changeBox(box, position) {
